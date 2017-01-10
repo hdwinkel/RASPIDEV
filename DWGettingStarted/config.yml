@@ -1,0 +1,12 @@
+logging:
+  level: INFO
+  loggers:
+    com.ikea.vaexabox: DEBUG
+    
+server:
+  applicationConnectors:
+  - type: http 
+    port: 8880
+  adminConnectors:
+  - type: http
+    port: 8881
