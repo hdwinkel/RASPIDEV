@@ -1,4 +1,4 @@
-package com.javaeeeee.dwstart.resources;
+package com.ikea.vaexabox.resources;
 
 import static org.junit.Assert.*;
 
