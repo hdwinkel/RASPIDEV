@@ -4,7 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Registration {
 
-	@JsonProperty("regid")
-    public String regid;
+	@JsonProperty("deviceid")
+    public String deviceid;
+	
+	@JsonProperty("name")
+    public String name;
+	
+	@JsonProperty("email")
+    public String email;
+	
 	
 }

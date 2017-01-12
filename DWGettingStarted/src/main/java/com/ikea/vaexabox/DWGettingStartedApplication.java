@@ -1,5 +1,10 @@
 package com.ikea.vaexabox;
 
+import org.skife.jdbi.v2.DBI;
+import org.sqlite.javax.SQLiteConnectionPoolDataSource;
+
+import com.ikea.vaexabox.db.EventDAO;
+import com.ikea.vaexabox.db.RegistrationDAO;
 import com.ikea.vaexabox.resources.HelloResource;
 import com.ikea.vaexabox.resources.PostEvent;
 import com.ikea.vaexabox.resources.PostRegistration;
@@ -27,9 +32,16 @@ public class DWGettingStartedApplication extends Application<DWGettingStartedCon
     @Override
     public void run(final DWGettingStartedConfiguration configuration,
             final Environment environment) {
+    
+		SQLiteConnectionPoolDataSource ds = new SQLiteConnectionPoolDataSource();
+		ds.setUrl(configuration.getDburl());
+		DBI jdbi = new DBI(ds);
+    	final EventDAO eventdao = jdbi.onDemand(EventDAO.class);
+    	final RegistrationDAO registrationdao = jdbi.onDemand(RegistrationDAO.class);
+    	
         environment.jersey().register(new HelloResource());
-        environment.jersey().register(new PostEvent());
-        environment.jersey().register(new PostRegistration());
+        environment.jersey().register(new PostEvent(eventdao));
+        environment.jersey().register(new PostRegistration(registrationdao));
     }
 
 }

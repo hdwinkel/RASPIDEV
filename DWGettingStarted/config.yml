@@ -10,3 +10,7 @@ server:
   adminConnectors:
   - type: http
     port: 8881
+
+    
+dburl: jdbc:sqlite:IKEAHelpMe.sqlite
+      
