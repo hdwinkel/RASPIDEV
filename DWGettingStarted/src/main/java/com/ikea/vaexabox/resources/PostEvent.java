@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 import com.ikea.vaexabox.core.Event;
 import com.ikea.vaexabox.db.EventDAO;
-import com.ikea.vaexabox.db.Helper;
+import com.ikea.vaexabox.tools.Helper;
 
 @Path("/PostEvent")
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,13 +22,13 @@ public class PostEvent {
 		
     @POST
     public Response logEvent(Event e) {
-        System.out.println("id: " + e.id);
-        System.out.println("number: " + e.number);
+        System.out.println("name: " + e.name);
         System.out.println("type: " + e.type);
-
+        System.out.println("count: " + e.count);
+        
         // write event in db
         
-        eventDAO.insert(Helper.getID(), e.type, Helper.getCurrentTimeStampAsTS(), e.number);
+        eventDAO.insert(Helper.getUUID(), e.name, e.type, Helper.getCurrentTimeStampAsTS(), e.count);
         
         // return nothing
         return Response.noContent().build();

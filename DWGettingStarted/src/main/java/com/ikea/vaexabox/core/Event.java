@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Event {
 
-	@JsonProperty("id")
-    public String id;
-	
-	@JsonProperty("number")
-    public int number;
+	@JsonProperty("name")
+    public String name;
 	
 	@JsonProperty("type")
     public String type;
 	
+	@JsonProperty("count")
+    public int count;
+	
+		
 }

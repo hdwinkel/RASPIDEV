@@ -17,5 +17,12 @@ public class DWGettingStartedConfiguration extends Configuration {
 		return dburl;
 	}
 	
+	@NotEmpty
+	private String raspi;
+
+	@JsonProperty
+	public String getRaspi() {
+		return raspi;
+	}
 		
 }

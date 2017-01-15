@@ -7,8 +7,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.ikea.vaexabox.core.Registration;
-import com.ikea.vaexabox.db.Helper;
 import com.ikea.vaexabox.db.RegistrationDAO;
+import com.ikea.vaexabox.tools.Helper;
 
 @Path("/PostRegistration")
 @Produces(MediaType.APPLICATION_JSON)
@@ -26,10 +26,14 @@ public class PostRegistration {
 		System.out.println("name: " + r.name);
 		System.out.println("email: " + r.email);
 
-        // write event in db
+		if (registrationDAO.getCountOfRegistrationsForDeviceID(r.deviceid)>0) {
+			// update registration in db
+			registrationDAO.updateRegistration(r.deviceid, r.name, r.email, Helper.getUUID(), Helper.getCurrentTimeStampAsTS(), Helper.getCurrentTimeStampAsTS(), Helper.getCurrentTimeStampAsTS());
+		} else {
+			// write init registration in db
+        	registrationDAO.initRegistration(r.deviceid, r.name, r.email, Helper.getUUID(), Helper.getCurrentTimeStampAsTS(), Helper.getCurrentTimeStampAsTS(), Helper.getCurrentTimeStampAsTS());
+		}
         
-        registrationDAO.insertInit(r.deviceid, r.name, r.email, Helper.getID(), Helper.get8hTimeStampAsTS(), Helper.getCurrentTimeStampAsTS(), Helper.getCurrentTimeStampAsTS(),1);
-		
 		return Response.noContent().build();
 	}
 

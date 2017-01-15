@@ -5,7 +5,9 @@ import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import com.ikea.vaexabox.db.EventDAO;
 import com.ikea.vaexabox.db.RegistrationDAO;
-import com.ikea.vaexabox.resources.HelloResource;
+import com.ikea.vaexabox.resources.GetCount;
+import com.ikea.vaexabox.resources.PostAccept;
+import com.ikea.vaexabox.resources.PostBreak;
 import com.ikea.vaexabox.resources.PostEvent;
 import com.ikea.vaexabox.resources.PostRegistration;
 
@@ -33,15 +35,19 @@ public class DWGettingStartedApplication extends Application<DWGettingStartedCon
     public void run(final DWGettingStartedConfiguration configuration,
             final Environment environment) {
     
+    	String location=configuration.getRaspi();
 		SQLiteConnectionPoolDataSource ds = new SQLiteConnectionPoolDataSource();
 		ds.setUrl(configuration.getDburl());
 		DBI jdbi = new DBI(ds);
     	final EventDAO eventdao = jdbi.onDemand(EventDAO.class);
     	final RegistrationDAO registrationdao = jdbi.onDemand(RegistrationDAO.class);
     	
-        environment.jersey().register(new HelloResource());
         environment.jersey().register(new PostEvent(eventdao));
+        environment.jersey().register(new PostAccept(eventdao));
         environment.jersey().register(new PostRegistration(registrationdao));
+        environment.jersey().register(new GetCount(eventdao, location));
+        environment.jersey().register(new PostBreak(registrationdao));
+        
     }
 
 }

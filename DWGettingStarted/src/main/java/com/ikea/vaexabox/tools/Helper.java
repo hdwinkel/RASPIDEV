@@ -1,4 +1,4 @@
-package com.ikea.vaexabox.db;
+package com.ikea.vaexabox.tools;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -20,13 +20,13 @@ public class Helper {
 		return sq;
 	}
 	
-	public static Timestamp get8hTimeStampAsTS() {
+	public static Timestamp getDelayTimeStampAsTS(int minutes) {
 		java.util.Date utilDate = new java.util.Date();
-		java.sql.Timestamp sq = new java.sql.Timestamp(utilDate.getTime()+(8*60*60*1000));
+		java.sql.Timestamp sq = new java.sql.Timestamp(utilDate.getTime()+(minutes*60*1000));
 		return sq;
 	}
 	
-	public static int getID() {
+	public static int getUUID() {
 		
 		
 		UUID id=UUID.randomUUID();
