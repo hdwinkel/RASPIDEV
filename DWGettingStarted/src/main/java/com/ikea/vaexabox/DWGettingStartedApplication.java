@@ -5,6 +5,8 @@ import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
 import com.ikea.vaexabox.db.EventDAO;
 import com.ikea.vaexabox.db.RegistrationDAO;
+import com.ikea.vaexabox.mail.SendTLSMail;
+import com.ikea.vaexabox.mail.TLSMail;
 import com.ikea.vaexabox.resources.GetCount;
 import com.ikea.vaexabox.resources.PostAccept;
 import com.ikea.vaexabox.resources.PostBreak;
@@ -41,8 +43,10 @@ public class DWGettingStartedApplication extends Application<DWGettingStartedCon
 		DBI jdbi = new DBI(ds);
     	final EventDAO eventdao = jdbi.onDemand(EventDAO.class);
     	final RegistrationDAO registrationdao = jdbi.onDemand(RegistrationDAO.class);
+    	TLSMail tlsm = new TLSMail(configuration.getSmtphost(), configuration.getSmtpport(), configuration.getSmtpuser(), configuration.getSmtppassword());
+    	boolean mustSendMail = ((configuration.getSendmail().equals("1"))?true:false);
     	
-        environment.jersey().register(new PostEvent(eventdao));
+        environment.jersey().register(new PostEvent(eventdao, registrationdao, mustSendMail, tlsm, location));
         environment.jersey().register(new PostAccept(eventdao));
         environment.jersey().register(new PostRegistration(registrationdao));
         environment.jersey().register(new GetCount(eventdao, location));

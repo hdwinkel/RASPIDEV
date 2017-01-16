@@ -15,3 +15,9 @@ dburl: jdbc:sqlite:IKEAHelpMe.sqlite
       
 raspi: bedrooms
 
+sendmail: 1
+smtphost: smtp.strato.de
+smtpport: 587
+smtpuser: raspi@egladil.de
+smtppassword: Raspi#17
+

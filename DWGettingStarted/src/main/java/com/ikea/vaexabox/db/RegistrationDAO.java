@@ -1,10 +1,14 @@
 package com.ikea.vaexabox.db;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
+import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
+
+import com.ikea.vaexabox.core.Registration;
 
 public interface RegistrationDAO {
 	  /*
@@ -58,7 +62,9 @@ public interface RegistrationDAO {
 			@Bind("deviceid") String deviceid 
 			);
 	
-	
+	@SqlQuery("select DeviceID, Name, EMail from CoWorker where BreakEndTime < :now")
+	  @Mapper(RegistrationMapper.class)
+	  List<Registration> findRegistrations(@Bind("now") Timestamp now);
 	
 	
 }
