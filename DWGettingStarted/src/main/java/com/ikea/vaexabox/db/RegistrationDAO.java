@@ -62,6 +62,14 @@ public interface RegistrationDAO {
 			@Bind("deviceid") String deviceid 
 			);
 	
+	// count registrations for a specific device within valid period
+		@SqlQuery("select Count(*) from CoWorker where DeviceID = :deviceid and BreakEndTime < :now")
+		int getCountOfRegistrationsForDeviceIDwithoutBreak(
+				@Bind("deviceid") String deviceid,
+				@Bind("now") Timestamp now
+				);
+	
+	
 	@SqlQuery("select DeviceID, Name, EMail from CoWorker where BreakEndTime < :now")
 	  @Mapper(RegistrationMapper.class)
 	  List<Registration> findRegistrations(@Bind("now") Timestamp now);

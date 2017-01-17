@@ -49,7 +49,7 @@ public class DWGettingStartedApplication extends Application<DWGettingStartedCon
         environment.jersey().register(new PostEvent(eventdao, registrationdao, mustSendMail, tlsm, location));
         environment.jersey().register(new PostAccept(eventdao));
         environment.jersey().register(new PostRegistration(registrationdao));
-        environment.jersey().register(new GetCount(eventdao, location));
+        environment.jersey().register(new GetCount(eventdao, registrationdao, location));
         environment.jersey().register(new PostBreak(registrationdao));
         
     }
