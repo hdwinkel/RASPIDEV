@@ -65,4 +65,48 @@ public class DWGettingStartedConfiguration extends Configuration {
 		return sendmail;
 	}
 	
+	@NotEmpty
+	private String initDisplay1;
+	@NotEmpty
+	private String initDisplay2;
+	@NotEmpty
+	private String onEventDisplay1;
+	@NotEmpty
+	private String onEventDisplay2;
+	@NotEmpty
+	private String onAcceptDisplay1;
+	@NotEmpty
+	private String onAcceptDisplay2;
+
+	@JsonProperty
+	public String getInitDisplay1() {
+		return initDisplay1;
+	}
+
+	@JsonProperty
+	public String getInitDisplay2() {
+		return initDisplay2;
+	}
+
+	@JsonProperty
+	public String getOnEventDisplay1() {
+		return onEventDisplay1;
+	}
+
+	@JsonProperty
+	public String getOnEventDisplay2() {
+		return onEventDisplay2;
+	}
+
+	@JsonProperty
+	public String getOnAcceptDisplay1() {
+		return onAcceptDisplay1;
+	}
+
+	@JsonProperty
+	public String getOnAcceptDisplay2() {
+		return onAcceptDisplay2;
+	}
+	
+	
 }

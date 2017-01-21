@@ -8,8 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ikea.vaexabox.core.DisplayMessages;
 import com.ikea.vaexabox.core.Event;
 import com.ikea.vaexabox.core.Registration;
+import com.ikea.vaexabox.db.DisplayDAO;
 import com.ikea.vaexabox.db.EventDAO;
 import com.ikea.vaexabox.db.RegistrationDAO;
 import com.ikea.vaexabox.mail.SendTLSMail;
@@ -22,17 +24,21 @@ public class PostEvent {
 
 	final EventDAO eventDAO;
 	final RegistrationDAO registrationDAO;
+	final DisplayDAO displayDAO;
+	final DisplayMessages dm;
 	final boolean mustSendMail;
 	final TLSMail tlsm;
 	final String location;
 
-	public PostEvent(EventDAO eventDAO, RegistrationDAO registrationDAO, boolean mustSendMail, TLSMail tlsm,
-			String location) {
+	public PostEvent(EventDAO eventDAO, RegistrationDAO registrationDAO, DisplayDAO displayDAO, boolean mustSendMail, TLSMail tlsm,
+			String location, DisplayMessages dm) {
 		this.eventDAO = eventDAO;
 		this.registrationDAO = registrationDAO;
+		this.displayDAO = displayDAO;
 		this.mustSendMail = mustSendMail;
 		this.tlsm = tlsm;
 		this.location = location;
+		this.dm = dm;
 	}
 
 	@POST
@@ -46,6 +52,7 @@ public class PostEvent {
 
 		List<Registration> registrations = registrationDAO.findRegistrations(Helper.getCurrentTimeStampAsTS());
 
+		// inform all registered co-worker
 		for (Registration reg : registrations) {
 
 			System.out.println("Registration:: deviceid:" + reg.deviceid + " name:" + reg.name + " email:" + reg.email);
@@ -60,6 +67,9 @@ public class PostEvent {
 			}
 		}
 
+		// update display
+		displayDAO.updateDisplayMessage(dm.getOnEventDisplay1(), dm.getOnEventDisplay2(), Helper.getCurrentTimeStampAsTS());
+		
 		// return nothing
 		return Response.noContent().build();
 	}

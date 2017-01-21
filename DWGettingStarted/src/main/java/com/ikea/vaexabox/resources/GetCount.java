@@ -40,7 +40,7 @@ public class GetCount {
 			if (registrationDAO.getCountOfRegistrationsForDeviceIDwithoutBreak(deviceid,
 					Helper.getCurrentTimeStampAsTS()) > 0) {
 				// count all events for a device outside break-time
-				getcount = eventDAO.getCount();
+  				getcount = eventDAO.getCount();
 			}
 		}
 		Count count = new Count();

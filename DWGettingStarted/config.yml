@@ -15,9 +15,22 @@ dburl: jdbc:sqlite:IKEAHelpMe.sqlite
       
 raspi: bedrooms
 
-sendmail: 1
+sendmail: 0
 smtphost: smtp.strato.de
 smtpport: 587
 smtpuser: raspi@egladil.de
 smtppassword: test0815
+
+
+initDisplay1: Press Button 
+initDisplay2: for Help Please!
+
+onEventDisplay1: IKEA Co-Worker 
+onEventDisplay2: is informed!
+
+onAcceptDisplay1: IKEA Co-worker
+onAcceptDisplay2: is coming soon!
+
+
+
 
