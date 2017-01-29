@@ -1,7 +1,8 @@
 import requests
 import json
 import pprint
-url = 'http://localhost:8880/GetDisplay'
+#url = 'http://localhost:8880/GetDisplay'
+url = 'http://192.168.10.142:8880/GetDisplay'
 #data = {"deviceid":"device03"}
 #data_json = json.dumps(data)
 headers = {'Content-type': 'application/json'}
