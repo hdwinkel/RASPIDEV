@@ -11,13 +11,17 @@ public class DisplayMessages {
 	private String onAcceptDisplay1;
 	private String onAcceptDisplay2;
 
+	private String onMannedDisplay1;
+	private String onMannedDisplay2;
 	
 	public DisplayMessages(	String initDisplay1, 
 							String initDisplay2, 
 							String onEventDisplay1, 
 							String onEventDisplay2, 
 							String onAcceptDisplay1, 
-							String onAcceptDisplay2) {
+							String onAcceptDisplay2,
+							String onMannedDisplay1, 
+							String onMannedDisplay2) {
 
 		this.initDisplay1=initDisplay1;
 		this.initDisplay2=initDisplay2;
@@ -25,6 +29,8 @@ public class DisplayMessages {
 		this.onEventDisplay2=onEventDisplay2;
 		this.onAcceptDisplay1=onAcceptDisplay1;
 		this.onAcceptDisplay2=onAcceptDisplay2;
+		this.onMannedDisplay1=onMannedDisplay1;
+		this.onMannedDisplay2=onMannedDisplay2;
 	}
 
 
@@ -85,6 +91,26 @@ public class DisplayMessages {
 
 	public void setOnAcceptDisplay2(String onAcceptDisplay2) {
 		this.onAcceptDisplay2 = onAcceptDisplay2;
+	}
+
+
+	public String getOnMannedDisplay1() {
+		return onMannedDisplay1;
+	}
+
+
+	public void setOnMannedDisplay1(String onMannedDisplay1) {
+		this.onMannedDisplay1 = onMannedDisplay1;
+	}
+
+
+	public String getOnMannedDisplay2() {
+		return onMannedDisplay2;
+	}
+
+
+	public void setOnMannedDisplay2(String onMannedDisplay2) {
+		this.onMannedDisplay2 = onMannedDisplay2;
 	}
 
 	

@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.1.1 on Mo Jan 16 02:59:52 2017
+-- File generated with SQLiteStudio v3.1.1 on So Jan 29 23:25:44 2017
 --
 -- Text encoding used: System
 --
@@ -34,10 +34,10 @@ INSERT INTO CoWorker (
                      VALUES (
                          'deviceid01',
                          'Detlef Winkelvoss',
-                         1484442375692,
+                         1484682827696,
 -                        1924527348,
                          1484430798700,
-                         1484438775692,
+                         1484682527696,
                          'winkel@egladil.de'
                      );
 
@@ -65,12 +65,26 @@ INSERT INTO CoWorker (
 DROP TABLE IF EXISTS DisplayMessage;
 
 CREATE TABLE DisplayMessage (
-    MessageID   INTEGER  PRIMARY KEY
-                         NOT NULL,
-    DisplayText TEXT     NOT NULL,
-    Created     DATETIME NOT NULL
-                         DEFAULT CURRENT_TIMESTAMP
+    MessageID    INTEGER  PRIMARY KEY
+                          NOT NULL,
+    DisplayText1 TEXT     NOT NULL,
+    DisplayText2 TEXT     NOT NULL,
+    Created      DATETIME NOT NULL
+                          DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO DisplayMessage (
+                               MessageID,
+                               DisplayText1,
+                               DisplayText2,
+                               Created
+                           )
+                           VALUES (
+                               851036537,
+                               'Press Button',
+                               'for Help Please!',
+                               1485728485455
+                           );
 
 
 -- Table: HelpRequest
@@ -86,95 +100,27 @@ CREATE TABLE HelpRequest (
                        DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
--                           1824848968,
-                            'button01',
-                            'button',
-                            1,
-                            1484529640795
-                        );
 
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
--                           206251765,
-                            'button01',
-                            'button',
-                            1,
-                            1484529396788
-                        );
+-- Table: Manned
+DROP TABLE IF EXISTS Manned;
 
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
-                            607291927,
-                            'button01',
-                            'button',
-                            1,
-                            1484531211023
-                        );
+CREATE TABLE Manned (
+    ID                PRIMARY KEY
+                      NOT NULL,
+    IsManned INTEGER  NOT NULL,
+    Updated  DATETIME NOT NULL
+);
 
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
-                            737484769,
-                            'button01',
-                            'button',
-                            1,
-                            1484531636903
-                        );
-
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
-                            1002717126,
-                            'button02',
-                            'button',
-                            1,
-                            1484529269221
-                        );
-
-INSERT INTO HelpRequest (
-                            RequestID,
-                            Name,
-                            Type,
-                            Count,
-                            Created
-                        )
-                        VALUES (
-                            1504285641,
-                            'button01',
-                            'button',
-                            1,
-                            1484529953091
-                        );
+INSERT INTO Manned (
+                       ID,
+                       IsManned,
+                       Updated
+                   )
+                   VALUES (
+                       1,
+                       0,
+                       1485728485446
+                   );
 
 
 COMMIT TRANSACTION;

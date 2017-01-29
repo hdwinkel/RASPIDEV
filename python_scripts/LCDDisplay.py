@@ -11,8 +11,8 @@ def setup():
 	LCD1602.init(0x27, 1)	# init(slave address, background light)
 
 def loop():
-	url = 'http://192.168.10.142:8880/GetDisplay'
-#	url = 'http://localhost:8880/GetDisplay'
+#	url = 'http://192.168.10.142:8880/GetDisplay'
+	url = 'http://localhost:8880/GetDisplay'
 	headers = {'Content-type': 'application/json'}
 	response = requests.get(url, headers=headers)
 	data = response.json()

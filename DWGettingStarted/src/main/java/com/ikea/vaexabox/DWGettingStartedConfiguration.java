@@ -77,7 +77,12 @@ public class DWGettingStartedConfiguration extends Configuration {
 	private String onAcceptDisplay1;
 	@NotEmpty
 	private String onAcceptDisplay2;
-
+	@NotEmpty
+	private String onMannedDisplay1;
+	@NotEmpty
+	private String onMannedDisplay2;
+	
+	
 	@JsonProperty
 	public String getInitDisplay1() {
 		return initDisplay1;
@@ -106,6 +111,16 @@ public class DWGettingStartedConfiguration extends Configuration {
 	@JsonProperty
 	public String getOnAcceptDisplay2() {
 		return onAcceptDisplay2;
+	}
+
+	@JsonProperty
+	public String getOnMannedDisplay1() {
+		return onMannedDisplay1;
+	}
+
+	@JsonProperty
+	public String getOnMannedDisplay2() {
+		return onMannedDisplay2;
 	}
 	
 	

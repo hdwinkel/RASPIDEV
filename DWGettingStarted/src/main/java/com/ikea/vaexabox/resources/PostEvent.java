@@ -13,6 +13,7 @@ import com.ikea.vaexabox.core.Event;
 import com.ikea.vaexabox.core.Registration;
 import com.ikea.vaexabox.db.DisplayDAO;
 import com.ikea.vaexabox.db.EventDAO;
+import com.ikea.vaexabox.db.MannedDAO;
 import com.ikea.vaexabox.db.RegistrationDAO;
 import com.ikea.vaexabox.mail.SendTLSMail;
 import com.ikea.vaexabox.mail.TLSMail;
@@ -25,16 +26,19 @@ public class PostEvent {
 	final EventDAO eventDAO;
 	final RegistrationDAO registrationDAO;
 	final DisplayDAO displayDAO;
+	final MannedDAO mannedDAO;
+
 	final DisplayMessages dm;
 	final boolean mustSendMail;
 	final TLSMail tlsm;
 	final String location;
 
-	public PostEvent(EventDAO eventDAO, RegistrationDAO registrationDAO, DisplayDAO displayDAO, boolean mustSendMail, TLSMail tlsm,
-			String location, DisplayMessages dm) {
+	public PostEvent(EventDAO eventDAO, RegistrationDAO registrationDAO, DisplayDAO displayDAO, MannedDAO mannedDAO,
+			boolean mustSendMail, TLSMail tlsm, String location, DisplayMessages dm) {
 		this.eventDAO = eventDAO;
 		this.registrationDAO = registrationDAO;
 		this.displayDAO = displayDAO;
+		this.mannedDAO = mannedDAO;
 		this.mustSendMail = mustSendMail;
 		this.tlsm = tlsm;
 		this.location = location;
@@ -47,29 +51,37 @@ public class PostEvent {
 		System.out.println("type: " + e.type);
 		System.out.println("count: " + e.count);
 
-		// write event in db
-		eventDAO.insert(Helper.getUUID(), e.name, e.type, Helper.getCurrentTimeStampAsTS(), e.count);
+		// if office is not manned then proceed normally else stop all activity
 
-		List<Registration> registrations = registrationDAO.findRegistrations(Helper.getCurrentTimeStampAsTS());
+		if (mannedDAO.getIsManned(1) != 1) {
 
-		// inform all registered co-worker
-		for (Registration reg : registrations) {
+			// write event in db
+			eventDAO.insert(Helper.getUUID(), e.name, e.type, Helper.getCurrentTimeStampAsTS(), e.count);
 
-			System.out.println("Registration:: deviceid:" + reg.deviceid + " name:" + reg.name + " email:" + reg.email);
+			List<Registration> registrations = registrationDAO.findRegistrations(Helper.getCurrentTimeStampAsTS());
 
-			if (mustSendMail) {
-				try {
-					// System.out.println("Send EMail to "+reg.email);
-					SendTLSMail.generateAndSendEmail(tlsm, reg, location, e.count);
-				} catch (Exception ex) {
-					System.out.println("Exception: " + ex);
+			// inform all registered co-worker
+			for (Registration reg : registrations) {
+
+				System.out.println(
+						"Registration:: deviceid:" + reg.deviceid + " name:" + reg.name + " email:" + reg.email);
+
+				if (mustSendMail) {
+					try {
+						// System.out.println("Send EMail to "+reg.email);
+						SendTLSMail.generateAndSendEmail(tlsm, reg, location, e.count);
+					} catch (Exception ex) {
+						System.out.println("Exception: " + ex);
+					}
 				}
 			}
+
+			// update display
+			displayDAO.updateDisplayMessage(dm.getOnEventDisplay1(), dm.getOnEventDisplay2(),
+					Helper.getCurrentTimeStampAsTS());
+
 		}
 
-		// update display
-		displayDAO.updateDisplayMessage(dm.getOnEventDisplay1(), dm.getOnEventDisplay2(), Helper.getCurrentTimeStampAsTS());
-		
 		// return nothing
 		return Response.noContent().build();
 	}
